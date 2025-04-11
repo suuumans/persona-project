@@ -6,7 +6,7 @@
   "outputDirectory": "dist",
   "env": {
     "VITE_BACKEND_URL": "http://localhost:5001",
-    "VITE_PROD_BACKEND_URL": "https://your-backend-url.vercel.app"
+    "VITE_PROD_BACKEND_URL": "https://persona-project-b.vercel.app"
   },
   "rewrites": [
     {
