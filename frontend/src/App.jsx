@@ -11,7 +11,7 @@ function App() {
   const chatEndRef = useRef(null);
 
   const backendUrl = import.meta.env.MODE === 'production' ? import.meta.env.VITE_PROD_BACKEND_URL : import.meta.env.VITE_BACKEND_URL;
-  console.log("Current Backend URL:", backendUrl);
+  // console.log("Current Backend URL:", backendUrl);
 
   if (!backendUrl) {
     console.error('Backend URL is not defined!', {
@@ -56,7 +56,7 @@ function App() {
     e.preventDefault();
     if (!question.trim() || isLoading) return;
 
-    console.log('Making request to: ', `${backendUrl}/ask`)
+    // console.log('Making request to: ', `${backendUrl}/ask`)
   
     const userMessage = createMessage('user', question);
     setChatHistory(prev => [...prev, userMessage]);
