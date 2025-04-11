@@ -133,6 +133,11 @@ class QuestionRequest(BaseModel):
     first_persona: str = "piyush"  # who replies first
 
 # --- API Endpoint ---
+
+@app.get("/")
+async def read_root():
+    return {"status": "ok", "message": "API is running"}
+
 @app.post("/ask")
 async def ask_mentor(request_body: QuestionRequest):
     user_question = request_body.question
