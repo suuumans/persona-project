@@ -69,7 +69,8 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: false
+          withCredentials: false,
+          timeout: 21000, // 21 seconds timeout
         }
       );
 
@@ -79,12 +80,24 @@ function App() {
       for (const { persona, answer } of responses) {
         setChatHistory(prev => [...prev, createMessage(persona, answer)]);
       }
-
     } catch (err) {
       console.error("Error fetching response:", err);
-      const errorMessage = err.response?.data?.detail || err.message || 'Failed to connect to the backend.';
+      let errorMessage;
+      
+      if (err.code === 'ECONNABORTED') {
+        errorMessage = 'Request timed out. Please try again.';
+      } else if (err.response?.status === 500) {
+        errorMessage = 'AI service is temporarily unavailable. Please try again in a few moments.';
+      } else if (err.response?.data?.detail) {
+        errorMessage = err.response.data.detail;
+      } else {
+        errorMessage = 'Failed to connect to the backend.';
+      }
+      
       setError(`Error: ${errorMessage}`);
-      setChatHistory(prev => [...prev, createMessage('error', `Oops! Connection mein problem hai (${errorMessage})`)]);
+      setChatHistory(prev => [...prev, 
+        createMessage('error', `Oops! Server mein kuch problem hai. (${errorMessage})`)
+      ]);
     } finally {
       setIsLoading(false);
     }
