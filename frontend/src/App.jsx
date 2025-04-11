@@ -26,11 +26,6 @@ function App() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory, firstPersona]);
 
-  useEffect(() => {
-    console.log('Backend URL:', backendUrl);
-    console.log('Full request URL:', `${backendUrl}/ask`);
-  }, [backendUrl]);
-
   const createMessage = (type, text) => {
     return {
       id: `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
