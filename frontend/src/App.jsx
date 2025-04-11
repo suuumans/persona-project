@@ -12,6 +12,7 @@ function App() {
 
   const backendUrl = import.meta.env.PROD ? import.meta.env.VITE_PROD_BACKEND_URL : import.meta.env.VITE_BACKEND_URL;
   
+  console.log("Current Backend URL:", backendUrl);
   useEffect(() => {
     // Scroll to the bottom of the chat window when new messages appear
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -41,6 +42,8 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!question.trim() || isLoading) return;
+
+    console.log('Making request to: ', `${backendUrl}/ask`)
   
     const userMessage = createMessage('user', question);
     setChatHistory(prev => [...prev, userMessage]);
