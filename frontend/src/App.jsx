@@ -18,6 +18,11 @@ function App() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory, firstPersona]);
 
+  useEffect(() => {
+    console.log('Backend URL:', backendUrl);
+    console.log('Full request URL:', `${backendUrl}/ask`);
+  }, [backendUrl]);
+
   const createMessage = (type, text) => {
     return {
       id: `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
@@ -56,21 +61,6 @@ function App() {
         { 
           question: userMessage.text,
           first_persona: firstPersona,
-          chat_history: chatHistory.map(msg => {
-            let respondTo = 'user'; // Default: everyone responds to user
-            if (msg.type === 'user') {
-              respondTo = firstPersona; // User is addressing the first persona
-            } else if (msg.type === 'hitesh') {
-              respondTo = 'piyush'; // Hitesh always responds to Piyush
-            } else if (msg.type === 'piyush') {
-              respondTo = 'hitesh'; // Piyush always responds to Hitesh
-            }
-            return {
-              role: msg.type,
-              content: msg.text,
-              respondTo
-            };
-          })
         },
         {
           headers: {
