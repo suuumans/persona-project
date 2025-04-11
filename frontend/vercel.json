@@ -1,0 +1,21 @@
+{
+  "buildCommand": "bun run build",
+  "devCommand": "bun run dev",
+  "framework": "vite",
+  "installCommand": "bun install",
+  "outputDirectory": "dist",
+  "env": {
+    "VITE_BACKEND_URL": "http://localhost:5001",
+    "VITE_PROD_BACKEND_URL": "https://your-backend-url.vercel.app"
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://your-backend-url.vercel.app/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

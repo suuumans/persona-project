@@ -10,7 +10,7 @@ function App() {
   const [firstPersona, setFirstPersona] = useState('piyush');
   const chatEndRef = useRef(null);
 
-  const backendUrl = 'http://localhost:5001/ask';
+  const backendUrl = import.meta.env.PROD ? import.meta.env.VITE_PROD_BACKEND_URL : import.meta.env.VITE_BACKEND_URL;
   
   useEffect(() => {
     // Scroll to the bottom of the chat window when new messages appear
@@ -49,7 +49,7 @@ function App() {
     setError(null);
   
     try {
-      const response = await axios.post(backendUrl, 
+      const response = await axios.post(`${backendUrl}/ask`, 
         { 
           question: userMessage.text,
           first_persona: firstPersona,
