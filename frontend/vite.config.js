@@ -12,6 +12,16 @@ export default defineConfig({
     sourcemap: true
   },
   define: {
-    'process.env.VITE_BACKEND_URL': JSON.stringify(process.env.VITE_BACKEND_URL || 'http://localhost:5001')
+    'process.env.VITE_BACKEND_URL': JSON.stringify(process.env.VITE_BACKEND_URL),
+    'process.env.VITE_PROD_BACKEND_URL': JSON.stringify(process.env.VITE_PROD_BACKEND_URL)
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_BACKEND_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

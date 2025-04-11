@@ -10,9 +10,17 @@ function App() {
   const [firstPersona, setFirstPersona] = useState('piyush');
   const chatEndRef = useRef(null);
 
-  const backendUrl = import.meta.env.PROD ? import.meta.env.VITE_PROD_BACKEND_URL : import.meta.env.VITE_BACKEND_URL;
-  
+  const backendUrl = import.meta.env.MODE === 'production' ? import.meta.env.VITE_PROD_BACKEND_URL : import.meta.env.VITE_BACKEND_URL;
   console.log("Current Backend URL:", backendUrl);
+
+  if (!backendUrl) {
+    console.error('Backend URL is not defined!', {
+      mode: import.meta.env.MODE,
+      prodUrl: import.meta.env.VITE_PROD_BACKEND_URL,
+      devUrl: import.meta.env.VITE_BACKEND_URL
+    });
+  }
+  
   useEffect(() => {
     // Scroll to the bottom of the chat window when new messages appear
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });

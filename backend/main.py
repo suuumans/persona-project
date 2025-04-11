@@ -117,7 +117,7 @@ origins = [
     "http://127.0.0.1:5173",
     "https://127.0.0.1:5173",
     "https://*.vercel.app",
-    "https://persona-project-frontend.vercel.app",
+    "https://persona-project-frontend-theta.vercel.app",
 ]
 app.add_middleware(
     CORSMiddleware,
