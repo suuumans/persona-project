@@ -16,6 +16,11 @@ export default defineConfig({
     'process.env.VITE_PROD_BACKEND_URL': JSON.stringify(process.env.VITE_PROD_BACKEND_URL)
   },
   server: {
+    cors: {
+      origin: ['https://persona-project-b.vercel.app'],
+      methods: ['GET', 'POST', 'OPTIONS'],
+      credentials: true
+    },
     proxy: {
       '/api': {
         target: process.env.VITE_BACKEND_URL,
